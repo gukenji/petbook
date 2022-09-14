@@ -1,29 +1,33 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
+<h2 class="bg-[#3b5998] text-center text-white py-2">Participe do Petbook</h2>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo: false} }) do |f| %>
+    <%= f.error_notification %>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label "Nome", class: "pl-2.5 text-sm text-[#626972]" %><br />
+    <%= f.text_field :name, autofocus: true, class: "mx-2.5 p-1 text-sm rounded-md" %>
   </div>
-
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label "E-mail", class: "pl-2.5 text-sm text-[#626972]" %><br />
+    <%= f.email_field :email, autocomplete: "email", class: "mx-2.5 p-1 text-sm rounded-md" %>
+  </div>
+  <div class="field">
+    <%= f.label "Senha", class: "pl-2.5 text-sm text-[#626972]" %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <em class="text-sm text-[#626972]">(mínimo de <%= @minimum_password_length %> caracteres)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", class: "mx-2.5 p-1 text-sm rounded-md" %>
   </div>
-
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label "Confirme sua senha", class: "pl-2.5 text-sm text-[#626972]" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "mx-2.5 p-1 text-sm rounded-md" %>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="actions flex justify-center bg-blue-700 rounded my-3 mx-1.5 ">
+    <%= f.submit "Cadastrar", class: "text-white text-sm rounded-md py-1 cursor-pointer grow" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  <div>
+    <p class="w-full text-center border-b-2 border-solid leading-[0] mt-4 mb-5 text-sm"><span class="px-2.5 bg-white">ou</span></p>
+  </div>
+  <div class="flex gap-1 text-sm justify-center">
+    <div class="flex gap-1 text-sm justify-center">
+      <%= link_to "Faça o login", new_session_path(resource_name), class: "text-white text-sm bg-green-500 rounded-md px-4 py-1.5 cursor-pointer"  %><br />
+    </div>
+  <% end %>
