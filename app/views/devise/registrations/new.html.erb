@@ -1,5 +1,5 @@
 <h2 class="bg-[#3b5998] text-center text-white py-2">Participe do Petbook</h2>
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo: false} }) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo: false}, :multipart => true }) do |f| %>
     <%= f.error_notification %>
   <div class="field">
     <%= f.label "Nome", class: "pl-2.5 text-sm text-[#626972]" %><br />
@@ -20,6 +20,13 @@
     <%= f.label "Confirme sua senha", class: "pl-2.5 text-sm text-[#626972]" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "mx-2.5 p-1 text-sm rounded-md" %>
   </div>
+
+    <div class="field">
+    <%= f.label "Escolha sua foto de perfil", class: "pl-2.5 text-sm text-[#626972]" %><br />
+    <%= f.file_field :avatar, class: "mx-2.5 p-1 text-sm rounded-md" %>
+    <%= f.hidden_field :avatar_cache%>
+  </div>
+
   <div class="actions flex justify-center bg-blue-700 rounded my-3 mx-1.5 ">
     <%= f.submit "Cadastrar", class: "text-white text-sm rounded-md py-1 cursor-pointer grow" %>
   </div>

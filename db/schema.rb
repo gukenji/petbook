@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_05_203244) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_19_171934) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invitations", force: :cascade do |t|
+    t.bigint "invited_user_id"
+    t.bigint "requesting_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invited_user_id"], name: "index_invitations_on_invited_user_id"
+    t.index ["requesting_user_id"], name: "index_invitations_on_requesting_user_id"
+  end
 
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -31,6 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_05_203244) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.string "avatar"
+    t.string "cover"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

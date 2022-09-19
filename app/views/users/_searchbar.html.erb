@@ -1,0 +1,13 @@
+<div class="flex items-center text-sm py-2.5">
+<%= form_tag users_path, method: :get, class: "flex-1 px-2.5" do %>
+  <p class="relative"><span class="material-symbols-outlined self-center absolute top-2 left-1">search</span><%= text_field_tag(:name, value = nil, class:"flex flex-1 sitems-center bg-[#e9ebee] py-1.5 pl-[28px] rounded-full w-full", placeholder: 'Pesquisar' )%></p>
+  <%= submit_tag ' ' %>
+<% end %>
+
+</div>
+
+<% if @profile %>
+<% @profile.each do |f| %>
+  <%= f.name%>
+<% end %>
+<% end %>

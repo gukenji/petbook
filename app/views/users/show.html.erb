@@ -1,0 +1,42 @@
+<% resource = current_user%>
+<%= render "users/navbar", name: @profile.name %>
+<div class="flex justify-center content-center relative">
+  <div class="profile-pic z-50 mt-[100px]">
+    <div class="flex overflow-hidden h-[142px] w-[142px] rounded-[50%] border-4">
+      <%= image_tag @profile.avatar.url %>
+    </div>
+    <% if @profile == current_user %>
+      <%= simple_form_for(resource, url: registration_path(resource), html: { class: "absolute right-[105px] bottom-[20px]", data: { turbo: false}, :multipart => true, method: :put  }) do |f| %>
+        <label class="flex material-symbols-outlined cursor-pointer bg-[#e4e6eb] rounded-full p-0.5 text-center">
+          photo_camera
+          <span style="display:none;">
+            <%= f.file_field :avatar, id: "file-input", onchange: 'this.form.submit();' %>
+            <%= f.hidden_field :avatar_cache %>
+          </span>
+        </label>
+      <% end %>
+    <% end%>
+  </div>
+  <div class="cover-pic absolute w-full h-full px-2.5 pt-2.5">
+    <div class="flex overflow-hidden rounded-t-lg">
+      <% if @profile.cover.url %>
+        <%= image_tag @profile.cover.url, class: "w-full h-[200px]" %>
+      <% end %>
+    </div>
+    <% if @profile == current_user %>
+      <%= simple_form_for(resource, url: registration_path(resource), html: { class: "absolute right-[20px] bottom-[40px]", data: { turbo: false}, :multipart => true, method: :put  }) do |f| %>
+        <label class="flex material-symbols-outlined cursor-pointer bg-[#e4e6eb] rounded-md p-0.5">
+          photo_camera
+          <span style="display:none;">
+            <%= f.file_field :cover, id: "file-input", onchange: 'this.form.submit();' %>
+            <%= f.hidden_field :cover_cache %>
+          </span>
+        </label>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div class="text-center py-1.5 text-[24px]"><%= @profile.name %></div>
+<div class="bg-[#dadde1] flex flex-col gap-2.5 py-2.5">
+  <%= render "shared/post", posts: @posts%>
+</div>

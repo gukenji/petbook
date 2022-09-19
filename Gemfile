@@ -86,3 +86,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "jsbundling-rails", "~> 1.0"
+gem "jquery-ui-rails"
+gem 'carrierwave', '~> 2.0'
