@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :posts
   resources :users
+  resources :invitations, :only => [:index, :new, :create, :destroy]
+  resources :friends, :only => [:index, :new, :create, :destroy]
   devise_scope :user do
     root to: "devise/sessions#new"
   end

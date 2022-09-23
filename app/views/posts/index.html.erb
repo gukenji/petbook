@@ -7,7 +7,11 @@
       <%= link_to(users_path) do %>
         <p class="cursor-pointer border-b text-white text-center flex text-sm items-center justify-center border-solid"><span class="material-symbols-outlined self-center">search</span>Pesquisar</p>
       <% end %>
-      <span class="material-symbols-outlined justify-self-center text-white text-2xl">notifications</span>
+      <% if @invites_received.count > 0%>
+      <div class="relative"><span class="material-symbols-outlined justify-self-center  text-2xl text-rose-700">notifications</span><span class="absolute top-0 text-rose-700 right-[1px] text-xs"><%= @invites_received.count %></span></div>
+      <% else %>
+        <span class="material-symbols-outlined justify-self-center  text-2xl text-white">notifications</span>
+      <% end%>
       <span class="material-symbols-outlined text-white pr-2.5 text-2xl">chat</span>
     </div>
     <div class="bg-[#ffffff] grid grid-cols-[2fr_11fr_1fr] py-2.5 px-2.5 gap-1.5">

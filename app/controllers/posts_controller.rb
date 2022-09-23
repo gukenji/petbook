@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
     @profile = User.find(current_user.id)
+    @invites_received = Invitation.invites_received(current_user)
   end
 
   def new

@@ -1,5 +1,6 @@
 <% resource = current_user%>
 <%= render "users/navbar", name: @profile.name %>
+<%# Profile infos %>
 <div class="flex justify-center content-center relative">
   <div class="profile-pic z-50 mt-[100px]">
     <div class="flex overflow-hidden h-[142px] w-[142px] rounded-[50%] border-4">
@@ -36,7 +37,61 @@
     <% end %>
   </div>
 </div>
+<%# Profile buttons %>
 <div class="text-center py-1.5 text-[24px]"><%= @profile.name %></div>
+<% if @profile == current_user %>
+  <%= button_to edit_user_registration_path, method: :get, class: "flex flex-1 gap-[10px] bg-[#1877f2] text-white rounded-md py-1.5 px-[50px] my-1.5 mx-2.5 justify-center", form_class: "flex w-full" do %>
+    <span class="material-symbols-outlined">edit</span> Editar perfil
+  <% end %>
+<% end %>
+<% if @profile != current_user %>
+<%# Se não existe um invite criado pelo usuário logado ou pelo perfil visitado %>
+  <% if !Invitation.where(invited_user_id: current_user.id, requesting_user_id: @profile.id).or(Invitation.where(invited_user_id: @profile.id, requesting_user_id: current_user.id)).exists? %>
+    <%= button_to invitations_path, params: {invited_user_id: @profile.id, requesting_user_id: current_user.id }, class: "flex gap-[10px] bg-[#1877f2] text-white rounded-md py-1.5 px-[50px] my-1.5 mx-2.5" do %>
+      <span class="material-symbols-outlined">person_add</span> Adicionar
+    <% end %>
+<%# Se existe algum invite vindo de @profile.id para o usuário logado e ainda não existe uma amizade criada %>
+  <% elsif (Invitation.where(invited_user_id: current_user.id, requesting_user_id: @profile.id).exists? && 
+           !Friend.where(friend_id: @profile.id, user_id: current_user.id).or(Friend.where(friend_id: current_user.id, user_id: @profile.id)).exists?) %>
+    <%= button_to friends_path, params: {friend_id: @profile.id, user_id: current_user.id }, class: "flex gap-[10px] bg-[#1877f2] text-white rounded-md py-1.5 px-[50px] my-1.5 mx-2.5" do %>
+      <span class="material-symbols-outlined">person_add</span> Aceitar
+    <% end %>
+<%# Se a amizade já esta estabelecida %>
+    <% elsif Friend.where(friend_id: @profile.id, user_id: current_user.id).or(Friend.where(friend_id: current_user.id, user_id: @profile.id)).exists?%>
+    <% friendship = Friend.where(friend_id: @profile.id, user_id: current_user.id).or(Friend.where(friend_id: current_user.id, user_id: @profile.id))[0] %>
+  <%= button_to friend_path(friendship.id), method: :delete, class: "flex flex-1 gap-[10px] bg-[#1877f2] text-white rounded-md py-1.5 px-[50px] my-1.5 mx-2.5 justify-center", form_class: "flex w-full" do %>
+    <span class="material-symbols-outlined">cancel</span> Desfazer amizade
+  <% end %>
+<%# Se ja existe um pedido de solicitacao de amizade nesse perfil feita pelo usuário logado %>
+  <% else%>
+    <% invite = Invitation.where(invited_user_id: @profile.id, requesting_user_id: current_user.id)[0]%>
+    <%= button_to invitation_path(id: invite.id), method: :delete,  class: "flex gap-[10px] bg-[#1877f2] text-white rounded-md py-1.5 px-[50px] my-1.5 mx-2.5" do %>
+      <span class="material-symbols-outlined">cancel</span> Cancelar pedido
+    <% end %>
+  <%end%>
+
+
+<% end%>
+<%# Friends %>
+<div class="border-t-2 mx-2.5 my-4">
+  <p class="text-[20px] mt-2">Amigos</p>
+  <p class="text-[17px] text-[#606770]"><%= @friends.count %> amigos</p>
+  <% @friends.each do |friend| %>
+    <% if friend.friend_id == @profile.id %>
+      <div class="">
+        <%= image_tag User.find(friend.user_id).avatar.url, class: "h-[120px] w-[120px] rounded-lg" %>
+        <p class="text-[13px] my-1"><%= User.find(friend.user_id).name %></p>
+      </div>
+    <% end %>
+    <% if friend.user_id == @profile.id %>
+      <div class="">
+        <%= image_tag User.find(friend.friend_id).avatar.url, class: "h-[120px] w-[120px] rounded-lg" %>
+        <p class="text-[13px] my-1"><%= User.find(friend.friend_id).name %></p>
+      </div>
+    <% end %>
+  <%end %>
+</div>
+<%# Posts %>
 <div class="bg-[#dadde1] flex flex-col gap-2.5 py-2.5">
   <%= render "shared/post", posts: @posts%>
 </div>
