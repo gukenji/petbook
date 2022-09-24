@@ -9,12 +9,13 @@ class User < ApplicationRecord
   has_many :friend_requests, through: :invitations
 
   has_many :friends, foreign_key: :user_id
-  
+
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover, AvatarUploader
 
-
+  has_many :likes
+  
   def self.search(name)
     user = User.where('name = ?', name) if name
   end

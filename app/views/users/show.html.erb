@@ -45,8 +45,10 @@
   <% end %>
 <% end %>
 <% if @profile != current_user %>
-<%# Se não existe um invite criado pelo usuário logado ou pelo perfil visitado %>
-  <% if !Invitation.where(invited_user_id: current_user.id, requesting_user_id: @profile.id).or(Invitation.where(invited_user_id: @profile.id, requesting_user_id: current_user.id)).exists? %>
+<%# Se não existe um invite criado pelo usuário logado ou pelo perfil visitado e ainda não sao amigos %>
+  <% if !Invitation.where(invited_user_id: current_user.id, requesting_user_id: @profile.id)
+        .or(Invitation.where(invited_user_id: @profile.id, requesting_user_id: current_user.id)).exists? &&
+        !Friend.where(friend_id: @profile.id, user_id: current_user.id).or(Friend.where(friend_id: current_user.id, user_id: @profile.id)).exists? %>
     <%= button_to invitations_path, params: {invited_user_id: @profile.id, requesting_user_id: current_user.id }, class: "flex gap-[10px] bg-[#1877f2] text-white rounded-md py-1.5 px-[50px] my-1.5 mx-2.5" do %>
       <span class="material-symbols-outlined">person_add</span> Adicionar
     <% end %>

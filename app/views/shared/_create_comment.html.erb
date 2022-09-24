@@ -1,0 +1,9 @@
+
+<%= simple_form_for(comment, url: comments_path , html: { data: { turbo: false}, method: :post, class: "flex gap-1.5 pl-2.5"  }) do |f| %>
+  <%= f.input :body, as: :text, :required => true, label: false, :input_html => { :class => 'text-xs rounded w-full', :rows => 3, :cols => 20 }, :wrapper_html => { :class => 'w-[80%]'}, placeholder: 'Escreva um comentário...' %>
+  <%= f.hidden_field :id, :value => nil %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :post_id, :value => post_id %>
+  <%= f.submit 'Publicar', class:"text-[9px] text-center px-2.5 cursor-pointer py-2.5 bg-[#4080ff] text-white rounded-md h-[40px] w-[60px]" %>
+<% end %>
+

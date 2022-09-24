@@ -1,0 +1,32 @@
+<%= render 'users/navbar',  name: @post.user.name%>
+<div class="bg-white flex flex-col min-h-[200px]">
+  <div class="flex px-2.5 py-1.5">
+    <%= link_to user_path(@post.user) do %>
+      <%= image_tag @post.user.avatar.url, class: "rounded-full h-[40px] w-[40px]"%>
+    <% end %>
+    <div class="flex flex-col px-2.5">
+      <p class="text-sm"><%= @post.user.name%></p>
+      <p class="text-xs"><%= Post.timestamp(@post.id).map {|key, value| "#{value} #{key}" if value > 0 }.join(' ') %></p>
+    </div>
+  </div>
+  <p class="text-xs px-2.5 py-1"><%= @post.body %></p>
+  <div class="flex gap-[50px] flex-col text-sm self-center flex-1 py-2 text-sm justify-end w-full px-[20px]">
+    <div class="flex border-t-2 gap-[50px] justify-center">
+      <p>Curtir</p>
+      <p>Comentar</p>
+    </div>
+  </div>
+  <%# Likes/Reactions %>
+  <div class="">
+  </div>
+  <%# Write a comment %>
+  <div class="flex px-2.5 py-1.5">
+    <%= image_tag current_user.avatar.url, class: "rounded-full h-[40px] w-[40px]" %>
+    <div class="flex-1">
+    <%= render 'shared/create_comment', comment: @comment, post_id: @post.id%>
+    </div>
+  </div>
+
+  <%# Show comments %>
+  <%= render 'comments/show_comments', comments: @comments%>
+</div>

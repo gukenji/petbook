@@ -1,7 +1,8 @@
 class Post < ApplicationRecord
   belongs_to :user
-
-
+  has_many :comments
+  has_many :likes
+  
   def self.timestamp(id)
     post_time = Post.find(id).created_at
     diff = Time.now-post_time

@@ -1,4 +1,6 @@
 class FriendsController < ApplicationController
+  after_action :delete_invite, only: :create
+
   def create
     @profile = current_user
     @friend = @profile.friends.build(friends_params)   
@@ -26,4 +28,13 @@ class FriendsController < ApplicationController
   def friends_params
     params.permit(:friend_id, :user_id)
   end
+
+  private
+  def delete_invite
+    @invite = Invitation.where(invited_user_id: @friend.friend_id, requesting_user_id: @friend.user_id)
+    .or(Invitation.where(invited_user_id: @friend.user_id, requesting_user_id: @friend.friend_id))
+    @invite.delete_all
+  end
 end
+
+
