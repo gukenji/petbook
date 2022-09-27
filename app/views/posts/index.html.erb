@@ -1,16 +1,17 @@
-<div class="bg-[#dadde1] flex flex-col gap-2.5">
+<div class="bg-[#dadde1] flex flex-col gap-2.5" data-controller="notification">
   <nav class="bg-[#dadde1] flex flex-col gap-1">
-    <div class="bg-[#3b5998] grid grid-cols-[1fr_7fr_1fr_1fr] content-center py-2.5 gap-3">
+    <div class="bg-[#3b5998] grid grid-cols-[1fr_1fr_7fr_1fr_1fr] content-center py-2.5 gap-3">
       <%= link_to user_path(current_user.id) do %>
-        <span class="material-symbols-outlined text-white pl-2.5 text-2xl">account_circle</span>
+        <span class="material-symbols-outlined text-white pl-2.5 cursor-pointer text-2xl">account_circle</span>
       <% end %>
+      <span class="material-symbols-outlined text-white pl-2.5 text-2xl cursor-pointer" data-action="click->notification#hide">dynamic_feed</span>
       <%= link_to(users_path) do %>
         <p class="cursor-pointer border-b text-white text-center flex text-sm items-center justify-center border-solid"><span class="material-symbols-outlined self-center">search</span>Pesquisar</p>
       <% end %>
       <% if @invites_received.count > 0%>
-      <div class="relative"><span class="material-symbols-outlined justify-self-center  text-2xl text-rose-700">notifications</span><span class="absolute top-0 text-rose-700 right-[1px] text-xs"><%= @invites_received.count %></span></div>
+        <div class="relative"><span class="material-symbols-outlined justify-self-center  text-2xl cursor-pointer text-rose-700" data-action="click->notification#show">notifications</span><span class="absolute top-0 text-rose-700 right-[1px] text-xs"><%= @invites_received.count %></span></div>
       <% else %>
-        <span class="material-symbols-outlined justify-self-center  text-2xl text-white">notifications</span>
+        <span class="material-symbols-outlined justify-self-center cursor-pointer text-2xl text-white" data-action="click->notification#show">notifications</span>
       <% end%>
       <span class="material-symbols-outlined text-white pr-2.5 text-2xl">chat</span>
     </div>
@@ -22,11 +23,13 @@
         <p class="text-sm  px-2.5 border-solid border-[1px] rounded-full py-1.5">No que você está pensando?</p>
       <% end %>
       <%= link_to new_post_path do %>
-      <span class="material-symbols-outlined justify-self-end text-3xl">image</span>
+        <span class="material-symbols-outlined justify-self-end text-3xl">image</span>
       <% end %>
+    </nav>
+    <div data-notification-target="posts" class="flex flex-col gap-2.5">
+      <%= render "shared/post", posts: @posts%>
     </div>
-  </nav>
-
-  <%= render "shared/post", posts: @posts%>
-
-  <%= button_to "deslogar", destroy_user_session_path, method: :delete %>
+    <div data-notification-target="notifications" class="hidden">
+      <%= render "users/notification" %>
+    </div>
+  </div>

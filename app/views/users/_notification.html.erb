@@ -1,0 +1,14 @@
+<% invitations = Invitation.where(invited_user_id: current_user.id) %>
+<% if invitations.exists? %>
+  <% invitations.each do |invitation| %>
+    <div class="bg-white flex py-2.5 px-2.5">
+      <%= image_tag User.find(invitation.requesting_user_id).avatar.url, class: "rounded-full h-[40px] w-[40px] mr-2.5" %>
+      <p class="text-xs flex-1 text-start text-ellipsis">Você tem uma nova solicitação de amizade: <strong><%= User.find(invitation.requesting_user_id).name %></strong></p>
+      <%= button_to friends_path, params: {friend_id: invitation.requesting_user_id, user_id: current_user.id }, class: "flex gap-[5px] bg-[#1877f2] items-center text-white text-xs rounded-md py-1 px-[5px] " do %>
+        <span class="material-symbols-outlined">person_add</span> Aceitar
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+<p class="bg-white flex py-5 px-2.5 text-center ">Você não possui novas notificações!</p>
+<% end %>

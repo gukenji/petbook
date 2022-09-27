@@ -4,7 +4,7 @@ class LikesController < ApplicationController
     @like = Like.new(like_params)
      respond_to do |format|
       if @like.save!
-        format.html { redirect_to request.referrer, notice: 'Like feito com sucesso!' }
+        format.html { redirect_to request.referrer }
         format.json { render :show, status: :created, location: @like }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -17,7 +17,7 @@ class LikesController < ApplicationController
     @like = Like.find(params[:id])
     @like.destroy
     respond_to do |format|
-      format.html { redirect_to request.referrer, notice: 'Like desfeito com sucesso.' }
+      format.html { redirect_to request.referrer }
       format.json { head :no_content }
     end
   end
