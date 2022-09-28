@@ -4,9 +4,14 @@
 
 import { application } from "./application"
 
+import CommentController from "./comment_controller"
+application.register("comment", CommentController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
 import NotificationController from "./notification_controller"
 application.register("notification", NotificationController)
 
+import SearchController from "./search_controller"
+application.register("search", SearchController)

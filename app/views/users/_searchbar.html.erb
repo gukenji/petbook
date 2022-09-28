@@ -1,13 +1,31 @@
-<div class="flex items-center text-sm py-2.5">
-<%= form_tag users_path, method: :get, class: "flex-1 px-2.5" do %>
-  <p class="relative"><span class="material-symbols-outlined self-center absolute top-2 left-1">search</span><%= text_field_tag(:name, value = nil, class:"flex flex-1 sitems-center bg-[#e9ebee] py-1.5 pl-[28px] rounded-full w-full", placeholder: 'Pesquisar' )%></p>
-  <%= submit_tag ' ' %>
-<% end %>
-
+  <% all_users = 0 %>
+<%# Search bar %>
+<div class="flex items-center text-sm pt-2.5">
+  <%= form_tag users_path, method: :get, class: "flex-1 px-2.5" do %>
+    <p class="relative"><span class="material-symbols-outlined self-center absolute top-1 left-1">search</span><%= text_field_tag(:name, value = nil, class:"flex flex-1 sitems-center bg-[#e9ebee] py-1.5 pl-[35px] rounded-full w-full text-sm", placeholder: 'Pesquisar' )%></p>
+    <%= submit_tag ' ' %>
+  <% end %>
 </div>
-
-<% if @profile %>
-<% @profile.each do |f| %>
-  <%= f.name%>
-<% end %>
-<% end %>
+<div class="" data-controller="search">
+  <%# All profiles %>
+  <p class="px-2.5 text-xs cursor-pointer text-end text-sky-700 mb-2" data-action="click->search#showAll">Mostrar todos os usuários</p>
+  <div class="hidden" data-search-target="allProfiles">
+    <% @profiles.each do |f| %>
+      <%= link_to user_path(f.id), class:"flex gap-1.5 text-[17px] content-center items-center px-2.5 py-2.5 border-t-2" do %>
+        <%= image_tag f.avatar.url, class: "rounded-full h-[40px] w-[40px]"%>
+        <%= f.name%>
+      <% end %>
+    <% end %>
+  </div>
+  <%# Profiles results %>
+  <% if @profile %>
+    <div class="" data-search-target="searchProfiles">
+      <% @profile.each do |f| %>
+        <%= link_to user_path(f.id), class:"flex gap-1.5 text-[17px] content-center items-center px-2.5 py-1.5" do %>
+          <%= image_tag f.avatar.url, class: "rounded-full h-[40px] w-[40px]"%>
+          <%= f.name%>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,10 @@
+<% if !Like.where(post_id: post.id, user_id: current_user.id).exists? %>
+  <%= button_to likes_path, html: { data: { turbo: false}, method: :post}, params: {user_id: current_user.id, post_id: post.id}, class: "flex items-center content-center" do%>
+    <p class="text-xs flex items-center content-center gap-1.5"><span class="material-symbols-outlined text-[18px]">thumb_up</span>Curtir</p>
+  <% end %>
+<%else %>
+  <% like = Like.where(post_id: post.id, user_id: current_user.id).first %>
+  <%= button_to like_path(like.id), method: :delete, class: "flex items-center content-center" do%>
+    <p class="text-xs flex items-center content-center gap-1.5 text-sky-700 font-bold"><span class="material-symbols-outlined text-[18px]">thumb_up</span>Descurtir</p>
+  <% end %>
+<%end%>

@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     respond_to do |format|
       if @comment.save!
-        format.html { redirect_to new_comment_path(:id => @comment.post_id), notice: 'Comentário criado com sucesso!' }
+        format.html { redirect_to new_comment_path(:id => @comment.post_id) }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }
