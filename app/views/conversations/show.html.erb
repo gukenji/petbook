@@ -1,0 +1,28 @@
+<% if @conversation.recipient_id != current_user.id %>
+  <% name = User.find(@conversation.recipient_id).name %>
+<% else %>
+  <% name = User.find(@conversation.sender_id).name %>
+<% end %>
+<%= render 'users/navbar', name: name %>
+<div class="flex flex-col max-w-full">
+  <% @conversation_messages.each do |conversation_message| %>
+    <div class="flex px-2.5 py-2.5 items-center gap-2 w-full">
+      <%= image_tag User.find(conversation_message.user_id).avatar.url, class: "h-[48px] w-[48px] rounded-full"  %>
+      <p class="bg-[#6ab8f1] w-full flex break-all flex-col flex-1 px-1 py-2 rounded-md text-white text-xs min-h-[50px]">
+        <span class="flex-1"><%= conversation_message.body %></span>
+        <span class="self-end pr-2 pt-1"><%= Message.formatTime(conversation_message.id)%></span>
+      </p>
+    </div>
+  <% end %>
+</div>
+<%= simple_form_for @conversation_message do |form| %>
+  <%= form.input :body,
+                                 wrapper: false,
+                                 label: false, 
+                                 :input_html => { :class => 'text-xs rounded w-full', :rows => 3, :cols => 20 },
+                                :wrapper_html => { :class => 'w-[80%]'}, 
+                                placeholder: 'Escreva sua mensagem' %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.hidden_field :conversation_id, value: @conversation.id %>
+  <%= form.submit 'enviar', class: "text-xs"%>
+<% end %>

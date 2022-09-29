@@ -15,6 +15,9 @@ class User < ApplicationRecord
   mount_uploader :cover, AvatarUploader
 
   has_many :likes
+
+  has_many :messages
+  has_many :conversations, foreign_key: :sender_id
   
   def self.search(name)
     user = User.where('name = ?', name) if name

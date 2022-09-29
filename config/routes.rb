@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :users
   resources :invitations, :only => [:index, :new, :create, :destroy]
   resources :friends, :only => [:index, :new, :create, :destroy]
+  resources :conversations
+  resources :messages
+  
   devise_scope :user do
     root to: "devise/sessions#new"
   end

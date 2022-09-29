@@ -13,7 +13,9 @@
       <% else %>
         <span class="material-symbols-outlined justify-self-center cursor-pointer text-2xl text-white" data-action="click->notification#show">notifications</span>
       <% end%>
+      <%= link_to conversations_path do %>
       <span class="material-symbols-outlined text-white pr-2.5 text-2xl">chat</span>
+      <% end %>
     </div>
     <div class="bg-[#ffffff] grid grid-cols-[2fr_11fr_1fr] py-2.5 px-2.5 gap-1.5">
       <%= link_to user_path(current_user.id) do %>
@@ -33,3 +35,7 @@
       <%= render "users/notification" %>
     </div>
   </div>
+</div>
+
+
+<%= button_to "Logout", destroy_user_session_path, :method => :delete, :data => { :no_turbolink => true } %>
