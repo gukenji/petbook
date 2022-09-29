@@ -18,7 +18,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.new(conversation_parameters)
     respond_to do |format|
       if @conversation.save!
-        format.html { redirect_to request.referrer }
+        format.html { redirect_to conversation_path(@conversation.id) }
         format.json { render :show, status: :created, location: @conversation }
       else
         format.html { render :new, status: :unprocessable_entity }
