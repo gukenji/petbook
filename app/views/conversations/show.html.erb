@@ -1,3 +1,4 @@
+<body data-conversation-id="<%= @conversation.id %>">
 <% if @conversation.recipient_id != current_user.id %>
   <% name = User.find(@conversation.recipient_id).name %>
 <% else %>
@@ -14,6 +15,7 @@
       </p>
     </div>
   <% end %>
+  <div id="message-display"></div>
 </div>
 <%= simple_form_for @conversation_message do |form| %>
   <%= form.input :body,
@@ -26,3 +28,5 @@
   <%= form.hidden_field :conversation_id, value: @conversation.id %>
   <%= form.submit 'enviar', class: "text-xs"%>
 <% end %>
+
+

@@ -26,4 +26,8 @@ class User < ApplicationRecord
   def self.searchfriends(id)
     friends = Friend.where('user_id = ? or friend_id = ?', id, id)
   end
+
+  def avatar_url
+    avatar_url = self.avatar.url
+  end
 end

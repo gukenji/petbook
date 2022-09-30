@@ -7,4 +7,10 @@ class Message < ApplicationRecord
     message_time.to_s(:short)
   end
   
+  # inclui na mensagem transmitida o atributo do caminho da url da imagem de profile
+  def as_json(options)
+    super(options).merge(user_avatar_url: user.avatar_url)
+  end
+
+  
 end
