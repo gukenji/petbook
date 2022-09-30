@@ -16,12 +16,20 @@ const conversationChannel = consumer.subscriptions.create({channel:"Conversation
   },
 
   template(data) {
-    return `<div class="flex px-2.5 py-2.5 items-center gap-2 w-full">
-              <p class="bg-[#6ab8f1] w-full flex break-all flex-col flex-1 px-1 py-2 rounded-md text-white text-xs min-h-[50px]">
-                <span class="flex-1">${data["user_avatar_url"]}</span>
-                <span class="flex-1">${data["body"]}</span>
-                <span class="self-end pr-2 pt-1"><%= Message.formatTime(conversation_message.id)%></span>
-              </p>
-            </div>`
+    return `<img src="${data["user_avatar_url"]}" class="h-[48px] w-[48px] rounded-full" alt="">
+            <p class="bg-[#6ab8f1] w-full flex break-all flex-col flex-1 px-1 py-2 rounded-md text-white text-xs min-h-[50px]">  
+              <span class="flex-1">${data["body"]}</span>
+              <span class="self-end pr-2 pt-1">${this.dateNow()}</span>
+            </p>
+            `
+  },
+
+  dateNow() {
+    data = new Date(Date.now()).toLocaleString('en', { day: '2-digit' }) + ' ' + 
+    new Date(Date.now()).toLocaleString('en', { month: 'short' })+ ' ' + 
+    new Date(Date.now()).toLocaleString('eu', { hour: 'numeric' })+ ':' + 
+    new Date(Date.now()).toLocaleString('eu', { minute: '2-digit' })
+    return data
   }
+
 });

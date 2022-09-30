@@ -15,7 +15,8 @@
       </p>
     </div>
   <% end %>
-  <div id="message-display"></div>
+  <div class="flex px-2.5 py-2.5 items-center gap-2 w-full" id="message-display">
+  </div>
 </div>
 <%= simple_form_for @conversation_message do |form| %>
   <%= form.input :body,
