@@ -5,6 +5,7 @@ export default class extends Controller {
   showAll(){
     this.allProfilesTarget.className = ""
     this.searchProfilesTarget.className = "hidden"
+
   }
   hideAll(){
     this.allProfilesTarget.className = "hidden"

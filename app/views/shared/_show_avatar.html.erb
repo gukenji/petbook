@@ -1,0 +1,12 @@
+
+<% if user.uploaded_url == nil %>
+  <%= image_tag user.avatar.url, class: "rounded-full h-[40px] w-[40px]" %>
+  <% if local_assigns[:show_name] == "true" %>
+    <%= user.name%>
+  <% end %>
+<% else %>
+  <%= image_tag user.uploaded_url, class: "rounded-full h-[40px] w-[40px]" %>
+  <% if local_assigns[:show_name] == "true" %>
+    <%= user.name%>
+  <% end %>
+<% end %>

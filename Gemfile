@@ -59,8 +59,16 @@ gem "devise"
 # Simple Form
 gem 'simple_form'
 
-# Gravatar
-gem 'gravatar', '~> 1.0'
+# Omniauth Facebook
+gem 'omniauth-facebook', '~> 4.0'
+gem 'omniauth-rails_csrf_protection'
+
+# Figaro
+gem "figaro"
+
+# Pry
+gem 'pry'
+gem 'pry-byebug'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

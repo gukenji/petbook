@@ -18,8 +18,9 @@
       <% end %>
     </div>
     <div class="bg-[#ffffff] grid grid-cols-[2fr_11fr_1fr] py-2.5 px-2.5 gap-1.5">
+    <%# Avatar %>
       <%= link_to user_path(current_user.id) do %>
-        <%= image_tag @profile.avatar.url, class: "rounded-full h-[40px] w-[40px]" %>
+            <%= render partial: 'shared/show_avatar', :locals => { :user => current_user, :show_name => "false" }%>
       <% end %>
       <%= link_to new_post_path do %>
         <p class="text-sm  px-2.5 border-solid border-[1px] rounded-full py-1.5">No que você está pensando?</p>

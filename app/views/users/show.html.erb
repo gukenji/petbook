@@ -4,7 +4,11 @@
 <div class="flex justify-center content-center relative">
   <div class="profile-pic z-50 mt-[100px]">
     <div class="flex overflow-hidden h-[142px] w-[142px] rounded-[50%] border-4">
-      <%= image_tag @profile.avatar.url %>
+      <% if @profile.uploaded_url == nil %>
+        <%= image_tag @profile.avatar.url %>
+      <% else %>
+        <%= image_tag @profile.uploaded_url %>
+      <% end %>
     </div>
     <% if @profile == current_user %>
       <%= simple_form_for(resource, url: registration_path(resource), html: { class: "absolute right-[105px] bottom-[20px]", data: { turbo: false}, :multipart => true, method: :put  }) do |f| %>
@@ -81,7 +85,11 @@
       <% if friend.friend_id == @profile.id %>
         <%= link_to user_path(friend.user_id) do %>
           <div class="">
-            <%= image_tag User.find(friend.user_id).avatar.url, class: "h-[120px] w-[120px] rounded-lg" %>
+            <% if User.find(friend.user_id).avatar.url != nil %>
+              <%= image_tag User.find(friend.user_id).avatar.url, class: "h-[120px] w-[120px] rounded-lg" %>
+            <% else %>
+              <%= image_tag User.find(friend.user_id).uploaded_url, class: "h-[120px] w-[120px] rounded-lg" %>
+            <% end %>
             <p class="text-[13px] my-1"><%= User.find(friend.user_id).name %></p>
           </div>
         <% end %>
@@ -89,7 +97,11 @@
       <% if friend.user_id == @profile.id %>
         <%= link_to user_path(friend.friend_id) do %>
           <div class="">
-            <%= image_tag User.find(friend.friend_id).avatar.url, class: "h-[120px] w-[120px] rounded-lg" %>
+            <% if User.find(friend.friend_id).avatar.url != nil %>
+              <%= image_tag User.find(friend.friend_id).avatar.url, class: "h-[120px] w-[120px] rounded-lg" %>
+            <% else %>
+              <%= image_tag User.find(friend.friend_id).uploaded_url, class: "h-[120px] w-[120px] rounded-lg" %>
+            <% end %>
             <p class="text-[13px] my-1"><%= User.find(friend.friend_id).name %></p>
           </div>
         <% end %>

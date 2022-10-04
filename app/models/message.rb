@@ -9,7 +9,11 @@ class Message < ApplicationRecord
   
   # inclui na mensagem transmitida o atributo do caminho da url da imagem de profile
   def as_json(options)
-    super(options).merge(user_avatar_url: user.avatar_url)
+    if user.avatar_url == nil 
+      super(options).merge(user_avatar_url: user.uploaded_url)
+    else
+      super(options).merge(user_avatar_url: user.avatar_url)
+    end
   end
 
   

@@ -7,3 +7,17 @@ window.jQuery = jquery
 window.$ = jquery
 
 import "./channels"
+// Ao apertar enter, envia a mensagem
+
+$('#message_body').keypress(function (e) {
+  if (e.which == 13) {
+    $('#new_message').submit();
+    return false;
+  }
+});
+
+// Scrolla para a ultima mensagem:
+$('#conversation').ready(function(){
+  window.scrollTo(0, document.body.scrollHeight);
+});
+

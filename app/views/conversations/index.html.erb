@@ -13,16 +13,14 @@
 
     <%= button_to conversation_path(conversation_id), method: :get, html: { data: { turbo: false} } do %>
       <div class="flex px-2.5 pt-2 gap-2.5 items-center">
-        <%= image_tag User.find(recipient).avatar.url, class: "rounded-full h-[40px] w-[40px]" %>
-        <%= User.find(recipient).name%>
+        <%= render partial: 'shared/show_avatar', :locals => { :user => User.find(recipient), :show_name => "true" }%>
       </div>
     <% end %>
   <% else %>
     <%# Cria conversa %>
     <%= button_to conversations_path, html: { data: { turbo: false}, method: :post}, params: {sender_id: current_user.id, recipient_id: recipient} do %>
       <div class="flex px-2.5 pt-2 gap-2.5 items-center">
-        <%= image_tag User.find(recipient).avatar.url, class: "rounded-full h-[40px] w-[40px]" %>
-        <%= User.find(recipient).name%>
+        <%= render partial: 'shared/show_avatar', :locals => { :user => User.find(recipient), :show_name => "true" }%>
       </div>
     <% end %>
   <% end %>

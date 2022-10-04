@@ -2,7 +2,7 @@
   <div class="bg-white flex flex-col min-h-[200px]">
     <div class="flex px-2.5 py-1.5">
       <%= link_to user_path(post.user) do %>
-        <%= image_tag post.user.avatar.url, class: "rounded-full h-[40px] w-[40px]"%>
+      <%= render partial: 'shared/show_avatar', :locals => { :user => post.user, :show_name => "false" }%>
       <% end %>
       <div class="flex flex-col px-2.5">
         <p class="text-sm"><%= post.user.name%></p>

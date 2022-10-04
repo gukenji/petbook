@@ -12,15 +12,17 @@ const conversationChannel = consumer.subscriptions.create({channel:"Conversation
   received(data) {
     // Called when there's incoming data on the websocket for this channel
     const messageDisplay = document.querySelector('#message-display')
-    messageDisplay.insertAdjacentHTML('afterbegin', this.template(data))
+    messageDisplay.insertAdjacentHTML('beforebegin', this.template(data))
   },
 
   template(data) {
-    return `<img src="${data["user_avatar_url"]}" class="h-[48px] w-[48px] rounded-full" alt="">
-            <p class="bg-[#6ab8f1] w-full flex break-all flex-col flex-1 px-1 py-2 rounded-md text-white text-xs min-h-[50px]">  
-              <span class="flex-1">${data["body"]}</span>
-              <span class="self-end pr-2 pt-1">${this.dateNow()}</span>
-            </p>
+    return `<div class="flex px-2.5 py-2.5 items-center gap-2 w-full">
+              <img src="${data["user_avatar_url"]}" class="h-[48px] w-[48px] rounded-full" alt="">
+              <p class="bg-[#6ab8f1] w-full flex break-all flex-col flex-1 px-1 py-2 rounded-md text-white text-xs min-h-[50px]">  
+                <span class="flex-1">${data["body"]}</span>
+                <span class="self-end pr-2 pt-1">${this.dateNow()}</span>
+              </p>
+            </div>
             `
   },
 

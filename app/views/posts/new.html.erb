@@ -4,7 +4,7 @@
   <% end %>
 </div>
 <div class="flex py-1.5 border-solid border-b px-2.5">
-  <%= image_tag current_user.avatar.url, class: "h-[48px] w-[48px] rounded-full" %>
+        <%= render 'shared/show_avatar', user: current_user %>
   <div class="flex flex-col px-2.5">
     <p><%= current_user.name %></p>
     <p class="text-xs">Compartilhar com: OPÇÕES</p>

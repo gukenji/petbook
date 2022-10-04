@@ -12,8 +12,7 @@
   <div class="hidden" data-search-target="allProfiles">
     <% @profiles.each do |f| %>
       <%= link_to user_path(f.id), class:"flex gap-1.5 text-[17px] content-center items-center px-2.5 py-2.5 border-t-2" do %>
-        <%= image_tag f.avatar.url, class: "rounded-full h-[40px] w-[40px]"%>
-        <%= f.name%>
+        <%= render partial: 'shared/show_avatar', :locals => { :user => f, :show_name => "true" }%>
       <% end %>
     <% end %>
   </div>
@@ -22,8 +21,7 @@
     <div class="" data-search-target="searchProfiles">
       <% @profile.each do |f| %>
         <%= link_to user_path(f.id), class:"flex gap-1.5 text-[17px] content-center items-center px-2.5 py-1.5" do %>
-          <%= image_tag f.avatar.url, class: "rounded-full h-[40px] w-[40px]"%>
-          <%= f.name%>
+        <%= render partial: 'shared/show_avatar', :locals => { :user => f, :show_name => "true" }%>
         <% end %>
       <% end %>
     </div>
