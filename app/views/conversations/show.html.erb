@@ -4,7 +4,14 @@
   <% else %>
     <% name = User.find(@conversation.sender_id).name %>
   <% end %>
-  <%= render 'users/navbar', name: name %>
+  <nav class="bg-[#dadde1] flex flex-col gap-1">
+  <div class="bg-[#3b5998] flex py-2.5 relative h-[54px] items-center">
+    <%= link_to :back do %>
+      <span class="material-symbols-outlined text-white pl-2 absolute top-[15px]">arrow_back</span>
+    <% end %>
+    <p class="text-center text-white flex-1 text-m"><%= name %></p>
+  </div>
+</nav>
   <div class="relative" id="conversation">
     <div class="flex flex-col max-w-full">
       <% @conversation_messages.each do |conversation_message| %>

@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @posts = Post.all
+    @posts = Post.timelinePosts(current_user)
     @profile = User.find(current_user.id)
     @invites_received = Invitation.invites_received(current_user)
   end

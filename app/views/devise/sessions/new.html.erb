@@ -1,8 +1,7 @@
 <h2 class="text-center text-blue-700 py-2">petbook</h2>
-
 <div class="flex flex-col px-1.5 py-2 text-sm">
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { data: { turbo: false}}) do |f| %>
-      <%= f.error_notification %>
+    <%= f.error_notification %>
     <div class="flex flex-col py-1 gap-0.5">
       <%= f.email_field :email, autocomplete: "email", class: "bg-slate-300 text-xs rounded py-1.5", placeholder: "Email" %>
     </div>
@@ -13,8 +12,10 @@
       <%= f.submit "Entrar" , class: "text-white rounded-md py-1 cursor-pointer grow" %>
     </div>
   <% end %>
+  <div class="actions flex justify-center bg-blue-700 rounded my-1.5">
+   <span class = "flex gap-2 items-center"><%= image_tag 'facebook.png', class:"bg-white text-white h-[20px] w-[20px]"%><%= button_to "Entrar com Facebook", user_facebook_omniauth_authorize_path, method: :post,  :data => {turbo: "false"}, class: "text-white rounded-md py-1 cursor-pointer grow" %></span>
+  </div>
 </div>
-<div class=""><%= button_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, method: :post %></div>
 <div class="flex gap-1 text-sm flex justify-center">
   <%= link_to "Esqueceu a senha?", new_password_path(resource_name), class: "text-sm text-blue-500" %><br />
 </div>
