@@ -1,5 +1,6 @@
 class ConversationsController < ApplicationController
   before_action :load_entities
+  before_action :check_conversation, only: [:show]
   def index
     # session[:conversations] ||= []
     # @users = User.all.where.not(id: current_user.id)
@@ -12,7 +13,6 @@ class ConversationsController < ApplicationController
   def new
     @conversation = Conversation.new(conversation_parameters)
   end
-
 
   def create
     @conversation = Conversation.new(conversation_parameters)
@@ -30,11 +30,9 @@ class ConversationsController < ApplicationController
   def show
     @conversation_message = Message.new
     @conversation_messages = @conversation.messages.includes(:user)
-
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @conversation.update_attributes(conversation_parameters)
@@ -55,5 +53,15 @@ class ConversationsController < ApplicationController
 
   def conversation_parameters
     params.permit(:recipient_id, :sender_id)
+  end
+
+  private
+  
+  def check_conversation
+    conversation = Conversation.find(params[:id])
+      if conversation.recipient_id != current_user.id && conversation.sender_id != current_user.id
+        flash[:alert] = "Sem permissão para ver essa conversa!"
+        redirect_to posts_path
+      end
   end
 end
